@@ -28,8 +28,17 @@ app.use(express.json()); // body parser
 //app.use('/api/user', userRoutes);
 
 // Use this route to setup the API documentation
-app.get('/', (req, res) => {
-    res.send('Welcome to my API!');
+// app.get('/', (req, res) => {
+//     res.send('Welcome to my API!');
+// });
+
+app.get('/questions', (req, res) => {
+    res.send('Here are all the questions');
+});
+
+app.get('/questions/:id', (req, res) => {
+    const questionId = req.params.id;
+    res.send(`Here is the question with ID: ${questionId}`);
 });
 
 app.listen(PORT, () => {
