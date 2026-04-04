@@ -7,7 +7,7 @@ const questionRouter = express.Router()
 // GET route to get all question api/question
 questionRouter.get("/question", getAllQuestions)
 // GET route to get a question by id api/question/:id
-questionRouter.get("question/:id", getQuestionById)
+questionRouter.get("/question/:id", getQuestionById)
 // GET route to search the database by a keyword api/question/:searchKeyword
 // 👉 It conflicts because Express treats /question/:id and /question/:searchKeyword as the same route pattern, so only the first one will run.
 // questionRouter.get("/question/:searchKeyword", searchByKeyword)
