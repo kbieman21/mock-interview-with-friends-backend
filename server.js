@@ -46,12 +46,34 @@ app.get('/answers', (req, res) => {
 
 app.use('/api/questions', questionRoutes);
 
-app.get('/questions/:id', (req, res) => {
-    const questionId = req.params.id;
-    res.send(`Here is the question with ID: ${questionId}`);
-});
+
+// app.get('/questions/:id', (req, res) => {
+//     const questionId = req.params.id;
+//     res.send(`Here is the question with ID: ${questionId}`);
+// });
 
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)
 });
+
+// NOTES
+
+// server.js
+// ├─ app.use(express.json())          ← Middleware (global)
+// ├─ app.use(morgan('dev'))           ← Middleware (global)
+// ├─ app.use('/api/questions', ...)   ← Mount router (only this!)
+// └─ app.listen(...)
+
+// questionRoutes.js
+// ├─ router.get("/", getAllQuestions)           ← Define routes here
+// ├─ router.get("/:id", getQuestionById)
+// ├─ router.post("/", adminAddQuestion)
+// ├─ router.put("/:id", adminEditQuestion)
+// └─ router.delete("/:id", adminDeleteQuestion)
+
+// questionController.js
+// ├─ getAllQuestions = (req, res) => { ... }   ← Logic here
+// ├─ getQuestionById = (req, res) => { ... }
+// ├─ adminAddQuestion = (req, res) => { ... }
+// └─ ... (all controller functions)
