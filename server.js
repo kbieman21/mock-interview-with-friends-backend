@@ -1,7 +1,10 @@
-import express from 'express';
-import morgan from 'morgan';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const cors = require("cors"); //open the door for localhost:5173(frontend)
+const dotenv = require('dotenv') //from 'dotenv';
+
+const questionRoutes = require('./routes/questionRoutes.js');
 
 // Set up all variables in the .env file
 dotenv.config();
@@ -22,6 +25,7 @@ const app = express();
 app.use(morgan('dev')); // logger
 app.use(express.json()); // body parser
 
+
 // ========= Routes ======================
 //import userRoutes from './routes/userRoutes.js';
 
@@ -32,14 +36,21 @@ app.use(express.json()); // body parser
 //     res.send('Welcome to my API!');
 // });
 
-app.get('/questions', (req, res) => {
-    res.send('Here are all the questions');
+app.get('/', (req, res) => {
+    res.send('Here are users');
 });
+
+app.get('/answers', (req, res) => {
+    res.send('Here are answers');
+});
+
+app.use('/api/questions', questionRoutes);
 
 app.get('/questions/:id', (req, res) => {
     const questionId = req.params.id;
     res.send(`Here is the question with ID: ${questionId}`);
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)
