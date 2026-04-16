@@ -7,8 +7,25 @@ async function getAllQuestions(req, res) {
     res.json(question);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });//server side error
   }
 }
 
-module.exports = {getAllQuestions};
+async function getQuestionById(req, res) {
+    try{
+        const questionById = await Questions.findById(req.params.id);
+        res.json(questionById);
+
+        if(!questionById) {
+          // the server successfully received the request but cannot locate the requested resource
+          res.status(404).json({error: "Question not found"}); 
+        }
+
+    }catch(error) {
+        console.log(error);
+        res.status(500).json({error: error.message})//server side error
+    }
+
+}
+
+module.exports = {getAllQuestions, getQuestionById};
